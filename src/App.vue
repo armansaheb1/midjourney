@@ -2,6 +2,28 @@
   <router-view />
 </template>
 
+<script>
+import axios from 'axios'
+
+export default {
+  name: '',
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+
+    const token = this.$store.state.token
+
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = "Token " + token
+      this.$store.state.isAuthenticated = true
+    } else {
+      axios.defaults.headers.common['Authorization'] = ""
+      this.$store.state.isAuthenticated = false
+    }
+  }
+}
+</script>
+
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -17,7 +39,7 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #444;
 }
 
 nav a.router-link-exact-active {

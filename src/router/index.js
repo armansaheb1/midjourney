@@ -9,7 +9,31 @@ const routes = [
         children: [
             {
               path:'',
-              component: () => import('@/components/HomeView')
+              component: () => import('../components/pages/HomeView')
+            },
+            {
+              path:'logout',
+              component: () => import('../components/pages/logout')
+            },
+            {
+              path:'imagine',
+              component: () => import('../components/pages/Imagine')
+            },
+            {
+              path:'imagine/:id',
+              component: () => import('../components/pages/ImagineResult')
+            },
+            {
+              path:'my-imagine',
+              component: () => import('../components/pages/MyImagine')
+            },
+            {
+              path:'charge',
+              component: () => import('../components/pages/Charge')
+            },
+            {
+              path:'success',
+              component: () => import('../components/pages/Success')
             }
         ]
   }

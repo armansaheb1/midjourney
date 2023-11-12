@@ -11,16 +11,13 @@
   
 <script>
 import navbar from './navbar.vue'
-import footers from './footer.vue'
 export default {
     name: 'HelloWorld',
     props: {
         msg: String
     },
     components: {
-        footers,
         navbar,
-
     }
 }
 </script>
