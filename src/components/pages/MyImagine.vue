@@ -105,9 +105,7 @@
               {{ item.percent }}
             </a>
             <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:25%;font-size:8px">
-              <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
-                :title="item.text">Show
-                Text</a>
+              <a style="padding:2px;">{{ item.type }}</a>
             </div>
             <hr style="width: 100%">
           </div>
@@ -130,7 +128,7 @@
               {{ item.percent }}
             </a>
             <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:25%;font-size:8px">
-              <a style="padding:2px;background:black; color:white; border-radius: 3px" :title="item.text">{{ type }}</a>
+              <a style="padding:2px">{{ item.type }}</a>
             </div>
             <hr style="width: 100%">
           </div>
