@@ -20,8 +20,16 @@ const routes = [
               component: () => import('../components/pages/Imagine')
             },
             {
+              path:'imagine/mid/:id',
+              component: () => import('../components/pages/ImagineMidResult')
+            },
+            {
+              path:'imagine/U/:id',
+              component: () => import('../components/pages/ImagineUpResult')
+            },
+            {
               path:'imagine/:id',
-              component: () => import('../components/pages/ImagineResult')
+              component: () => import('../components/pages/ImagineMidResult')
             },
             {
               path:'my-imagine',
