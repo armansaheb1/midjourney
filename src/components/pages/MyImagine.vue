@@ -6,7 +6,7 @@
         <div class="card-header" style="padding: 0">
           <div style="width: 100%">
             <div style="float:left;width:5%">
-              #
+
             </div>
             <div style="float:left;width:25%">
               Text
@@ -25,10 +25,7 @@
         </div>
         <div class="">
           <div v-for="(item, idx) in imagines" v-bind:key="idx" style="height: 30px; width: 100%">
-            <a :href="`/imagine/${item.code}`"
-              style="float:left;height: 30px; margin-top:20px;overflow: auto;width:5%;font-size:8px">
-              {{ idx + 1 }}
-            </a>
+            <img :src="item.image" style="width: 100%" alt="">
             <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:20%;font-size:8px; cursor: pointer">
               <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
                 :title="item.text">Show

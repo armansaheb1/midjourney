@@ -9,10 +9,12 @@
       <div id="menu" :style="`float:right ; height:${height}px`">
         <div>
           Options<br><br>
-          <button style="margin: 5px" @click="(button(item))" v-for="item in buttons" class="btn btn-dark"
-            v-bind:key="item">
-            {{ item }}
-          </button>
+          <div v-for="item in buttons" v-bind:key="item">
+            <button v-if="(item !== '🖌️ Vary (Region)') && (item !== 'Web') && (item !== '🔍 Custom Zoom')"
+              style="margin: 5px" @click="(button(item))" class="btn btn-dark">
+              {{ item }}
+            </button>
+          </div>
           <br><br>
           <hr style="margin: 3px">
         </div>
