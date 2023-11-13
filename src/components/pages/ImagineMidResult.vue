@@ -117,7 +117,7 @@ export default {
         act = 'u'
       }
       await axios
-        .post('/button', { btn: id, code: this.bid, act: act })
+        .post('/button', { btn: id, code: this.bid, act: act, type: id })
         .then(response => response.data)
         .then(response => {
           if (id.includes('U')) {
