@@ -51,32 +51,6 @@
                 @click="unhide(idx)">No Variations</a>
             </div>
             <hr style="width: 100%">
-            <div v-for="(item, idxs) in item.get_variations" :id="'v' + idx" v-bind:key="idxs" hidden
-              style="height: 30px; width: 100% ; background: #cfcfcf">
-              <a :href="`/imagine/${item.code}`"
-                style="float:left;height: 30px; margin-top:20px;overflow: auto;width:5%;font-size:8px">
-                {{ idxs + 1 }}
-              </a>
-              <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:20%;font-size:8px">
-                <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
-                  :title="item.text">Show
-                  Text</a>
-              </div>
-              <a :href="`/imagine/${item.code}`"
-                style="float:left;height: 30px; margin-top:20px;overflow: auto;font-size:10px;width:25%">
-                {{ item.get_age }}
-              </a>
-              <a :href="`/imagine/${item.code}`"
-                style="float:left;height: 30px; margin-top:20px;overflow: auto;font-size:12px;width:25%">
-                {{ item.percent }}
-              </a>
-              <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:25%;font-size:8px">
-                <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
-                  :title="item.text">Show
-                  Text</a>
-              </div>
-              <hr style="width: 100%">
-            </div>
           </div>
           <div v-if="!imagines.length" style="width: 100%">
             <hr>
@@ -84,8 +58,90 @@
           </div>
         </div>
       </div>
-      <div style="clear: both"></div>
     </div>
+    <br><br>
+
+    <h3 v-if="vars.length" style="text-align: center;">Upsacles and Variations</h3>
+    <div v-if="vars.length" class="card" style="overflow: auto;">
+      <div class="card-header" style="padding: 0">
+        <div style="width: 100%">
+          <div style="float:left;width:5%">
+            #
+          </div>
+          <div style="float:left;width:25%">
+            Text
+          </div>
+          <div style="float:left;width:25%">
+            Date
+          </div>
+          <div style="float:left;width:20%">
+            progress
+          </div>
+          <div style="float:left;width:25%">
+            Vari..
+          </div>
+
+        </div>
+      </div>
+
+      <div>
+        <div v-for="(item, idxs) in vars" :id="'v' + idx" v-bind:key="idxs" style="height: 30px; width: 100% ">
+          <div v-if="item.act === 'u'">
+            <a :href="`/imagine/u/${item.code}`"
+              style="float:left;height: 30px; margin-top:20px;overflow: auto;width:5%;font-size:8px">
+              {{ idxs + 1 }}
+            </a>
+            <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:20%;font-size:8px">
+              <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
+                :title="item.text">Show
+                Text</a>
+            </div>
+            <a :href="`/imagine/u/${item.code}`"
+              style="float:left;height: 30px; margin-top:20px;overflow: auto;font-size:10px;width:25%">
+              {{ item.get_age }}
+            </a>
+            <a :href="`/imagine/u/${item.code}`"
+              style="float:left;height: 30px; margin-top:20px;overflow: auto;font-size:12px;width:25%">
+              {{ item.percent }}
+            </a>
+            <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:25%;font-size:8px">
+              <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
+                :title="item.text">Show
+                Text</a>
+            </div>
+            <hr style="width: 100%">
+          </div>
+          <div v-else>
+            <a :href="`/imagine/${item.code}`"
+              style="float:left;height: 30px; margin-top:20px;overflow: auto;width:5%;font-size:8px">
+              {{ idxs + 1 }}
+            </a>
+            <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:20%;font-size:8px">
+              <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
+                :title="item.text">Show
+                Text</a>
+            </div>
+            <a :href="`/imagine/${item.code}`"
+              style="float:left;height: 30px; margin-top:20px;overflow: auto;font-size:10px;width:25%">
+              {{ item.get_age }}
+            </a>
+            <a :href="`/imagine/${item.code}`"
+              style="float:left;height: 30px; margin-top:20px;overflow: auto;font-size:12px;width:25%">
+              {{ item.percent }}
+            </a>
+            <div style="float:left;height: 30px; margin-top:20px;overflow: auto;width:25%;font-size:8px">
+              <a style="padding:2px;background:black; color:white; border-radius: 3px" @click="text(item.text)"
+                :title="item.text">Show
+                Text</a>
+            </div>
+            <hr style="width: 100%">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="clear: both"></div>
+
   </div>
 </template>
 
@@ -105,6 +161,7 @@ export default {
   data() {
     return {
       imagines: [],
+      vars: []
     }
   },
   mounted() {
@@ -115,9 +172,7 @@ export default {
       this.$swal(`<div class="" style="display: flex;"></div><h6>${text}</h6>`)
     },
     unhide(id) {
-      if (document.getElementById('v' + id)) {
-        document.getElementById('v' + id).hidden = false
-      }
+      this.vars = this.imagines[id].get_variations
 
     },
     async get_image() {

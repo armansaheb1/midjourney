@@ -9,7 +9,10 @@
       <div id="menu" :style="`float:right ; height:${height}px`">
         <div>
           Options<br><br>
-
+          <button style="margin: 5px" @click="(button(item))" v-for="item in buttons" class="btn btn-dark"
+            v-bind:key="item">
+            {{ item }}
+          </button>
           <br><br>
           <hr style="margin: 3px">
         </div>
@@ -128,6 +131,7 @@ export default {
             this.image = response.image
             this.text = response.text
             this.bid = response.bid
+            this.buttons = response.buttons
           }
           else {
             this.progress = response.percent

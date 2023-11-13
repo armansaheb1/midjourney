@@ -112,8 +112,12 @@ export default {
       var urls = ''
       urls = urls + this.result[id] + '\n'
       this.text = urls + this.text
+      var act = 'v'
+      if (id.includes('U')) {
+        act = 'u'
+      }
       await axios
-        .post('/button', { btn: id, code: this.bid })
+        .post('/button', { btn: id, code: this.bid, act: act })
         .then(response => response.data)
         .then(response => {
           if (id.includes('U')) {
