@@ -93,7 +93,7 @@ export default {
       urls = urls + this.result[id] + '\n'
       this.text = urls + this.text
       await axios
-        .post('/button', { btn: id, code: this.bid })
+        .post('/button', { btn: id, code: this.bid, act: 'u' })
         .then(response => response.data)
         .then(response => {
           if (id.includes('U')) {
