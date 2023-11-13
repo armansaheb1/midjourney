@@ -96,12 +96,7 @@ export default {
         .post('/button', { btn: id, code: this.bid, act: 'u', type: id })
         .then(response => response.data)
         .then(response => {
-          if (id.includes('U')) {
-            window.location.href = '/imagine/upscale/' + response['code'];
-          } else {
-            window.location.href = '/imagine/' + response['code'];
-          }
-
+          window.location.href = '/imagine/upscale/' + response['code'];
         })
 
     },
