@@ -9,17 +9,13 @@
       <div id="menu" :style="`float:right ; height:${height}px`">
         <div>
           Options<br><br>
-          <button class="btn btn-dark" style="width:23%; margin: 0 1%;" @click="button('U1')">1</button>
-          <button class="btn btn-dark" style="width:23%; margin: 0 1%;" @click="button('U2')">2</button>
-          <button class="btn btn-dark" style="width:23%; margin: 0 1%;" @click="button('U3')">3</button>
-          <button class="btn btn-dark" style="width:23%; margin: 0 1%;" @click="button('U4')">4</button>
+
           <br><br>
           <hr style="margin: 3px">
         </div>
 
         <div>
           Other Operations<br><br>
-          <button class="btn btn-dark" style="width:23%; margin: 0 1%;" @click="button('V1')"> Refresh </button>
           <button class=" btn btn-dark" style="width:23%; margin: 0 1%;" @click="download(image)">Download</button>
           <br><br>
 
