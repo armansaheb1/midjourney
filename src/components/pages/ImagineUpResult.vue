@@ -15,6 +15,7 @@
               {{ item }}
             </button>
           </div>
+          <div style="clear: both"></div>
           <br><br>
           <hr style="margin: 3px">
         </div>
