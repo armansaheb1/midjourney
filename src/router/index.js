@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import mainlayout from '../components/layouts/mainlayout'
+import adminmainlayout from '../adminComponents/layouts/mainlayout'
 
 const routes = [
   {
@@ -43,6 +44,29 @@ const routes = [
               path:'success',
               component: () => import('../components/pages/Success')
             }
+        ]
+  },
+  {
+  path:'/admin/',
+        component: adminmainlayout,
+        children: [
+            {
+              path:'',
+              component: () => import('../adminComponents/pages/HomeView')
+            },
+            {
+              path:'users',
+              component: () => import('../adminComponents/pages/Users')
+            },
+            {
+              path:'transactions',
+              component: () => import('../adminComponents/pages/Transactions')
+            },
+            {
+              path:'imagines',
+              component: () => import('../adminComponents/pages/Imagines')
+            },
+            
         ]
   }
 ]
