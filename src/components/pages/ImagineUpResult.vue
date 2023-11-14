@@ -11,7 +11,7 @@
           Options<br><br>
           <div v-for="item in buttons" v-bind:key="item">
             <button v-if="(item !== '🖌️ Vary (Region)') && (item !== 'Web') && (item !== '🔍 Custom Zoom')"
-              style="margin: 5px" @click="(button(item))" class="btn btn-dark">
+              style="margin: 5px ; float:left" @click="(button(item))" class="btn btn-dark">
               {{ item }}
             </button>
           </div>
