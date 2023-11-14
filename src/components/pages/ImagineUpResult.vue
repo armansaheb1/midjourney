@@ -98,7 +98,7 @@ export default {
         .post('/button', { btn: id, code: this.bid, act: 'u', type: id })
         .then(response => response.data)
         .then(response => {
-          window.location.href = '/imagine/upscale/' + response['code'];
+          window.location.href = '/imagine/u/' + response['code'];
         })
 
     },
