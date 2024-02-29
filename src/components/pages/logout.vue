@@ -1,5 +1,5 @@
 <template>
-<div></div>
+  <div></div>
 </template>
 
 <script>
@@ -12,18 +12,15 @@ export default {
       default: true
     }
   },
-  mounted () {
+  mounted() {
     this.logout()
   },
   methods: {
-    logout () {
+    logout() {
       axios.defaults.headers.common.Authorization = ''
       localStorage.removeItem('token')
       this.$store.commit('removeToken')
       this.$router.push('/')
-      setTimeout(() => {
-        location.reload()
-      }, 500);
     }
   }
 }

@@ -3,8 +3,8 @@
         <nav style="height:77px; border-bottom: solid lightgrey 1px; z-index: 12;position:fixed; width: 100%"
             class="navbar " :class="{ 'bg-light': !$store.state.isDark, 'bg-dark': $store.state.isDark }">
             <div class="container-fluid" style="">
-                <a class="navbar-brand" href="/"><img style="height:65px ; margin-left:10px ; margin-top: -8px"
-                        src="/LIMOO.jpg" alt=""></a>
+                <a class="navbar-brand" href="/"><img loading="lazy"
+                        style="height:65px ; margin-left:10px ; margin-top: -8px" src="/LIMOO.jpg" alt=""></a>
                 <button style="margin-top: -10px" class="navbar-toggler" type="button"
                     @click="$store.state.side = !$store.state.side">
                     <span class="navbar-toggler-icon"></span>
@@ -82,10 +82,19 @@ export default {
     z-index: 101;
     width: 70%;
     left: 15%;
-    top: 5%
+    top: 18%
 }
+
 
 .login-card::-webkit-scrollbar {
     width: 0;
+}
+
+@media only screen and (max-width: 500px) {
+    .login-card {
+        width: 95%;
+        left: 2.5%;
+        top: 5%
+    }
 }
 </style>

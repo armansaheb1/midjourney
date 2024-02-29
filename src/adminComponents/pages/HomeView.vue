@@ -50,7 +50,7 @@
                       <td class="w-30">
                         <div class="px-2 py-1 d-flex align-items-center">
                           <div>
-                            <img :src="sale.flag" alt="Country flag" />
+                            <img loading="lazy" :src="sale.flag" alt="Country flag" />
                           </div>
                           <div class="ms-4">
                             <p class="mb-0 text-xs font-weight-bold">Country:</p>

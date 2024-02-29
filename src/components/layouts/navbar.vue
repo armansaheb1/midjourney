@@ -1,24 +1,16 @@
 <template>
     <div>
-        <nav style="height:77px; border-bottom: solid lightgrey 1px; z-index: 12;position:fixed; width: 100%"
+        <nav style="height:77px; border-bottom: solid lightgrey 1px; z-index: 12;position:fixed; width: 100%; z-index:100000000; background: #FED001!important"
             class="navbar " :class="{ 'bg-light': !$store.state.isDark, 'bg-dark': $store.state.isDark }">
             <div class="container-fluid" style="">
-                <a class="navbar-brand" href="/"><img style="height:65px ; margin-left:10px ; margin-top: -8px"
-                        src="/LIMOO.jpg" alt=""></a>
+                <a class="navbar-brand" href="/"><img loading="lazy"
+                        style="height:65px ; margin-left:10px ; margin-top: -8px" src="/LIMOO_whole_logo.png" alt=""></a>
                 <button style="margin-top: -10px" class="navbar-toggler" type="button"
                     @click="$store.state.side = !$store.state.side">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
         </nav>
-        <vue-final-modal style="width:100% ; background:none; z-index: 1000" v-model="showModal">
-            <div @click="showModal = false" style="position:absolute; width: 100%; height: 100%; top:0;left: 0; z-index: 1">
-
-            </div>
-            <div style="; overflow: auto;max-height: 90%;" class="login-card">
-                <login />
-            </div>
-        </vue-final-modal>
     </div>
 </template>
   
@@ -66,7 +58,7 @@ export default {
 
         },
         login() {
-            this.showModal = true
+            this.$store.state.showModal = true
         },
     }
 }
@@ -82,7 +74,20 @@ export default {
     z-index: 101;
     width: 70%;
     left: 15%;
-    top: 5%
+    top: 18%
+}
+
+
+.login-card::-webkit-scrollbar {
+    width: 0;
+}
+
+@media only screen and (max-width: 500px) {
+    .login-card {
+        width: 95%;
+        left: 2.5%;
+        top: 5%
+    }
 }
 
 .login-card::-webkit-scrollbar {

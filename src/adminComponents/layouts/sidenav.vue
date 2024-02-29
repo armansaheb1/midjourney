@@ -1,19 +1,19 @@
 <template>
     <div>
         <div v-if="$store.state.side" @click="$store.state.side = !$store.state.side" id="noside"
-            :style="`position:fixed; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 10; padding-top: 77px; left: 0;width: ${width - 250}px `">
+            :style="`position:fixed; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 10; margin-top:77px; left: 0;width: ${width - 250}px `">
         </div>
         <div v-if="$store.state.side"
-            style="z-index: 11;width: 250px; height: 100%;  background: white;right: 0;top:0; padding-top: 77px;position: fixed; overflow: auto;">
+            style="z-index: 11;width: 250px; height: 100%;  background: white;right: 0;top:0; margin-top:77px;position: fixed; overflow: auto;">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li style="margin: 3px" class="nav-item ">
-                    <a class="nav-link " href="/admin/" id="navbarDropdown" role="button" aria-expanded="false">
+                    <a class="nav-link " href="/admin/dashboard" id="navbarDropdown" role="button" aria-expanded="false">
                         Dashboard
                     </a>
                 </li>
                 <li style="margin: 3px" class="nav-item ">
-                    <a class="nav-link " href="/admin/" id="navbarDropdown" role="button" aria-expanded="false">
+                    <a class="nav-link " href="/admin/transactions" id="navbarDropdown" role="button" aria-expanded="false">
                         Deposit History
                     </a>
                 </li>
@@ -28,20 +28,26 @@
                     </a>
                 </li>
                 <li style="margin: 3px" class="nav-item ">
-                    <a href="/admin/" class="nav-link " id="navbarDropdown" role="button" aria-expanded="false">
+                    <a disabled href="/admin/swaps" class="nav-link " id="navbarDropdown" role="button"
+                        aria-expanded="false">
                         Face Swap Orders
                     </a>
                 </li>
 
                 <li style="margin: 3px" class="nav-item ">
-                    <a href="/admin/" class="nav-link " id="navbarDropdown" role="button" aria-expanded="false">
+                    <a disabled href="#" class="nav-link " id="navbarDropdown" role="button" aria-expanded="false">
                         ChatGPT Orders
                     </a>
                 </li>
 
                 <li style="margin: 3px" class="nav-item ">
-                    <a href="/admin/" class="nav-link " id="navbarDropdown" role="button" aria-expanded="false">
-                        Charge Users Account
+                    <a href="/admin/packages" class="nav-link " id="navbarDropdown" role="button" aria-expanded="false">
+                        Packages
+                    </a>
+                </li>
+                <li style="margin: 3px" class="nav-item ">
+                    <a href="/admin/bonus" class="nav-link " id="navbarDropdown" role="button" aria-expanded="false">
+                        Bonus
                     </a>
                 </li>
                 <hr>
@@ -126,7 +132,20 @@ export default {
     z-index: 101;
     width: 70%;
     left: 15%;
-    top: 5%
+    top: 18%
+}
+
+
+.login-card::-webkit-scrollbar {
+    width: 0;
+}
+
+@media only screen and (max-width: 500px) {
+    .login-card {
+        width: 95%;
+        left: 2.5%;
+        top: 5%
+    }
 }
 
 .login-card::-webkit-scrollbar {

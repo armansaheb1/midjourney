@@ -3,13 +3,14 @@
     <circle-progress v-if="progress != 100" style="width: 10%; margin-left: 45%; height: unset" :percent="progress" />
     <div style="width: 100%; margin: auto; border-radius: 0; border:solid 1px lightgrey;margin-bottom: 0">
       <div v-for="item in result" v-bind:key="item" style="float: left; width: 23%; margin: 1%;">
-        <img style="width: 100% ;float: left;" :src="item" alt="">
+        <img loading="lazy" style="width: 100% ;float: left;" :src="item" alt="">
         <a class="form-control btn btn-dark" @click="downloadImage(item)"
           style="margin-bottom: 5px;border-radius: 0; padding: 5px">Download</a><br>
       </div>
       <div style="clear: both"></div>
     </div>
   </div>
+  <div style="height: 200px;width: 100%"></div>
 </template>
 
 <script>
@@ -54,9 +55,9 @@ export default {
         .get(`/imagine-result/${id}`)
         .then(response => response.data)
         .then(response => {
-          console.log(response)
+
           if (response.result) {
-            console.log(response)
+
             this.result = response.result
             this.progress = response.percent
           }

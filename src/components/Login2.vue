@@ -1,43 +1,45 @@
 <template>
   <div>
     <div class="card" style="z-index:100; text-align: center;">
-      <div class="card-header" :class="{ 'bannerbg-dark': $store.state.isDark, 'bannerbg-light': !$store.state.isDark }"
-        style="padding:0">
+      <div v-if="!forgot" class="card-header"
+        :class="{ 'bannerbg-dark': $store.state.isDark, 'bannerbg-light': !$store.state.isDark }" style="padding:0">
         <button v-bind:class="{ 'active': login }" class="login-btn" @click="login = true">Login</button>
-        <button v-bind:class="{ 'active': !login }" class="login-btn" @click="login = false"> Sign Up</button>
+        <button v-bind:class="{ 'active': !login }" class="login-btn" @click="login = false"> Register</button>
       </div>
-      <div class="card-body" v-if="login">
-        <a class="navbar-brand" href="/"><img style="height:60px"
-            src="https://dwglogo.com/wp-content/uploads/2019/03/1600px-OpenAI_logo.png" alt=""></a>
+      <div class="card-body" v-if="login && !forgot">
+        <a class="navbar-brand" href="/"><img loading="lazy" style="height:60px" src="/LIMOO_whole_logo.png" alt=""></a>
         <div class="card">
           <div class="card-header"
             :class="{ 'bannerbg-dark': $store.state.isDark, 'bannerbg-light': !$store.state.isDark }">
-            login
+            Login
           </div>
           <div class="card-body">
             <form @submit.prevent="submitForm()">
               <div id='form1'>
-                <input type="text" class="form-control" v-model="username" placeholder="Username" name="" id="">
+                <input style="text-align: right" type="text" class="form-control" v-model="username" placeholder="Email"
+                  name="" id="">
                 <br>
                 <div class="form-group">
                   <div class="" id="show_hide_password">
-                    <input v-model="password" class="form-control" type="password">
+                    <input style="text-align: right" v-model="password" class="form-control" type="password">
                     <div class="input-group-addon">
                     </div>
                   </div>
                 </div>
 
-                <p style="text-align:left; font-size:14px">Forgot password? <a>Click Here</a></p>
+                <p style="text-align:right; font-size:14px"> Forgot Your Passwrod ?<a href="#"
+                    @click="forgot = true">Click Here</a></p>
               </div>
               <div id="form2" hidden>
                 <label for="">Google Authenticator Code</label>
-                <input v-model="gcode" class="form-control" id="passfld" type="text"><br>
+                <input style="text-align: right" v-model="gcode" class="form-control" id="passfld" placeholder="کلمه عبور"
+                  type="text"><br>
               </div>
 
               <button class="btn btn-dark form-control">LOGIN</button>
               <br><br>
-              <p style="font-size:14px">Don’t have an account? <a style="color:darkblue" @click="login = false">Sign
-                  up</a></p>
+              <p style="font-size:14px"> Don't have an account ?<a style="color:darkblue; margin-right:10px"
+                  @click="login = false">Register Now</a></p>
 
 
             </form>
@@ -48,34 +50,77 @@
 
 
 
-      <div class="card-body" v-if="!login">
-        <a class="navbar-brand" href="#"><img style="height:60px"
-            src="https://dwglogo.com/wp-content/uploads/2019/03/1600px-OpenAI_logo.png" alt=""></a>
+      <div class="card-body" v-if="!login && !forgot">
+        <a class="navbar-brand" href="#"><img loading="lazy" style="height:60px" src="/LIMOO_whole_logo.png" alt=""></a>
         <div class="card">
           <div class="card-header"
             :class="{ 'bannerbg-dark': $store.state.isDark, 'bannerbg-light': !$store.state.isDark }">
-            Sign Up
+            Register
           </div>
           <div class="card-body">
-            <form @submit.prevent="RsubmitForm()">
-              <div class="alert alert-success" v-if="success">{{ success }}</div>
-              <input required type="text" v-model="Remail" class="form-control Remail" placeholder="Email" name="" id="">
-              <div class="invalid-tooltip">{{ Retool }}</div>
+            <div v-if="!verify && !codder">
+              <input style="text-align: right" required type="text" v-model="phone" class="form-control Remail"
+                placeholder="Email" name="" id="">
+              <button @click="get_sms_status()" class="btn btn-dark"> submit</button>
+            </div>
+            <div v-if="!verify && codder">
+              <input style="text-align: right" required type="text" v-model="code" class="form-control Remail"
+                placeholder="Email" name="" id="">
+              <button @click="check_code()" class="btn btn-dark"> submit</button>
+            </div>
+            <div v-if="verify">
+              <p v-if="RRerrors" class="alert alert-danger">{{ RRerrors }}</p>
+              <form @submit.prevent="RsubmitForm()">
+                <div class="alert alert-success" v-if="success">{{ success }}</div>
+                <input style="text-align: right" required type="text" v-model="Remail" class="form-control Remail"
+                  placeholder="Email" name="" id="">
+                <div class="invalid-tooltip">{{ Retool }}</div>
+                <br>
+                <div class="">
+                  <div class="" id="show_hide_passwords">
+                    <input style="text-align: right" required class="form-control Rpass" v-model="Rpassword"
+                      placeholder="کلمه عبور" type="password">
+                    <div class="invalid-tooltip">{{ Rptool }}</div>
+                  </div>
+                </div><br>
+                <input style="text-align: right" v-if="sslash" class="form-control Rrepass" v-model="Rrepassword"
+                  placeholder="تکرار کلمه عبور" type="password">
+                <div class="invalid-tooltip">{{ Rreptool }}</div><br>
+                <button id="submit2" class="btn btn-dark form-control" type="submit">REGISTER</button>
+              </form>
               <br>
-              <div class="">
-                <div class="" id="show_hide_passwords">
-                  <input required class="form-control Rpass" v-model="Rpassword" placeholder="Password" type="password">
-                  <div class="invalid-tooltip">{{ Rptool }}</div>
-                </div>
-              </div><br>
-              <input v-if="sslash" class="form-control Rrepass" v-model="Rrepassword" placeholder="Confirm Password"
-                type="password">
-              <div class="invalid-tooltip">{{ Rreptool }}</div>
-              <p style="text-align:left; font-size:14px">Forgot password? <a>Click Here</a></p>
-              <button id="submit2" class="btn btn-dark form-control" type="submit">REGISTER</button>
+              <p style="font-size:14px"> Have an Account ?<a style="color:darkblue; margin-right:10px"
+                  @click="login = true">Login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body" v-if="forgot">
+        <a class="navbar-brand" href="/"><img loading="lazy" style="height:60px" src="/LIMOO_whole_logo.png" alt=""></a>
+        <div class="card">
+          <div class="card-header"
+            :class="{ 'bannerbg-dark': $store.state.isDark, 'bannerbg-light': !$store.state.isDark }">
+            Forgot Password
+          </div>
+          <div class="card-body">
+            <p v-if="ferror" class="alert alert-danger">Can't Find any Account With This Email</p>
+            <p v-if="fsuccess" class="alert alert-success">Change Password Link Sent</p>
+            <form @submit.prevent="fsubmitForm()">
+              <div id='form1'>
+                <input required style="text-align: right" type="text" class="form-control" v-model="fusername"
+                  placeholder="Email" name="" id="">
+                <br>
+              </div>
+
+              <button class="btn btn-dark form-control">LOGIN</button>
+              <br><br>
+              <p style="text-align:right; font-size:14px; text-align: center"> <a href="#"
+                  @click="forgot = false; login = true">Login</a></p>
+
+
+
             </form>
-            <br><br>
-            <p style="font-size:14px">have an account? <a style="color:darkblue" @click="login = true">Log In</a></p>
           </div>
         </div>
       </div>
@@ -99,6 +144,7 @@ export default {
     ptool: '',
     utool: '',
     username: '',
+    fusername: '',
     password: '',
     isShow: false,
     Rerrors: [],
@@ -116,31 +162,20 @@ export default {
     login: true,
     success: false,
     Rreptool: '',
-    RisShow: false
+    RisShow: false,
+    forgot: false,
+    fsuccess: false,
+    ferror: false,
+    verify: false,
+    RRerrors: '',
+    codder: false,
   }),
   mounted() {
     document.title = ' The My Exchange | Login '
   },
   methods: {
-    async addinfo() {
-      const formData = {
-        username: this.Remail.toLowerCase(),
-        first_name: this.Rfirst_name,
-        last_name: this.Rlast_name
-      }
-      await axios
-        .post('/createusersinfo/', formData)
-        .then(response => {
-          this.success = 'your account has been successfully created , you will be redirected to the login page'
-          setTimeout(() => {
-            this.success = false
-            this.$store.state.showloginindex = false
-            this.$store.state.showloginnavbar = false
-            this.login = true
-          }, 2000)
-        })
-    },
     async RsubmitForm() {
+      this.RRerrors = ''
       this.Rerrors = []
       this.Rerrors2 = []
       this.Rutool = ''
@@ -191,23 +226,19 @@ export default {
         const formData = {
           username: this.Remail.toLowerCase(),
           email: this.Remail.toLowerCase(),
-          password: this.Rpassword
+          password: this.Rpassword,
         }
         await axios
           .post('auth/users/', formData)
           .then(response => {
-            this.addinfo()
+            this.add_user()
+
           })
           .catch(error => {
+
             if (error.response) {
-              for (const property in error.response.data) {
-                if (property === 'username') {
-                  this.errors.push('Account with this email is already exist')
-                } else if (property === 'password') {
-                  this.Rerrors.push(' Your password should be more than 8 characters')
-                } else {
-                  this.Rerrors.push(`${property}: ${error.response.data[property]}`)
-                }
+              for (var property in error.response.data) {
+                this.Rerrors.push(`${property}: ${error.response.data[property]}`)
               }
             } else if (error.message) {
               this.Rerrors.push(error.message)
@@ -215,13 +246,12 @@ export default {
           })
       }
       if (this.Rerrors.length) {
-        var errors = this.errors
-        var error = '<div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div><h5>'
+        var errors = this.Rerrors
+        var error = ''
         for (var er = 0; er < errors.length; er++) {
           error += '\n' + errors
         }
-        error += '</h5>'
-        this.$swal(error)
+        this.RRerrors = error
       }
     },
     async submitForm() {
@@ -250,27 +280,79 @@ export default {
             axios.defaults.headers.common.Authorization = 'Token ' + token
             this.$store.state.isAuthenticated = true
             localStorage.setItem('token', token)
-            const toPath = this.$route.go || '/my-imagine'
-            this.$router.push(toPath)
+            setTimeout(() => {
+              var elem = document.createElement('a')
+              elem.href = '/'
+              elem.click()
+            }, 2000);
           })
           .catch(error => {
+            console.log(error)
             if (error.response) {
-              console.log(error.response)
-              if (error.response.data[0] === 'non_field_errors') {
-                this.$swal(`<div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div><h5>Incorrect Username Or Password</h5>`)
-              } else {
-                this.$swal(`<div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div><h5>${error.response.data[0]}</h5>`)
-              }
-            } else if (error.message) {
-              this.$swal(`<div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div><h5>${error.message}</h5>`)
+              this.$swal(`<div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div><h5>${error.response.data.detail}</h5>`)
             }
           })
       }
+    },
+    async fsubmitForm() {
+      this.fsuccess = false
+      this.ferror = false
+      await axios
+        .post('password_reset/', { email: this.fusername })
+        .then(response => {
+          this.fsuccess = true
+        })
+        .catch(error => {
+          this.ferror = true
+        })
+    },
+    async get_sms_status() {
+      this.fsuccess = false
+      this.ferror = false
+      await axios
+        .get(`sms-verify/${this.phone}`, { phone: this.phone })
+        .then(response => {
+          this.verify = true
+        })
+        .catch(error => {
+          this.verify = false
+          this.codder = true
+        })
+    },
+    async check_code() {
+      this.fsuccess = false
+      this.ferror = false
+      await axios
+        .post(`sms-verify/${this.phone}`, { code: this.code })
+        .then(response => {
+          this.verify = true
+        })
+        .catch(error => {
+          this.Rerrors = ['Wrong Code']
+        })
+    },
+    async add_user() {
+      this.fsuccess = false
+      this.ferror = false
+      await axios
+        .post(`sms-verify/${this.phone}`, { username: this.Remail.toLowerCase() })
+        .then(response => {
+          this.success = 'your account has been successfully created , you will be redirected to the login page'
+          setTimeout(() => {
+            this.login = true
+          }, 2000)
+        })
+        .catch(error => {
+        })
     }
   }
 }
 </script>
 <style>
+div {
+  font-family: myFirstFont;
+}
+
 #passfld {
   text-security: disc;
   -webkit-text-security: disc;

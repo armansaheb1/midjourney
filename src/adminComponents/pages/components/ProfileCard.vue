@@ -1,14 +1,12 @@
 <template>
   <div class="card card-profile">
-    <img src="../../assets/img/bg-profile.jpg" alt="Image placeholder" class="card-img-top" />
+    <img loading="lazy" src="../../assets/img/bg-profile.jpg" alt="Image placeholder" class="card-img-top" />
     <div class="row justify-content-center">
       <div class="col-4 col-lg-4 order-lg-2">
         <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
           <a href="javascript:;">
-            <img
-              src="../../assets/img/team-2.jpg"
-              class="rounded-circle img-fluid border border-2 border-white"
-            />
+            <img loading="lazy" src="../../assets/img/team-2.jpg"
+              class="rounded-circle img-fluid border border-2 border-white" />
           </a>
         </div>
       </div>
@@ -19,10 +17,7 @@
         <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-block d-lg-none">
           <i class="ni ni-collection"></i>
         </a>
-        <a
-          href="javascript:;"
-          class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block"
-        >Message</a>
+        <a href="javascript:;" class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
         <a href="javascript:;" class="btn btn-sm btn-dark float-right mb-0 d-block d-lg-none">
           <i class="ni ni-email-83"></i>
         </a>

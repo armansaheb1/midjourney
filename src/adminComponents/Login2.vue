@@ -7,7 +7,7 @@
         <button v-bind:class="{ 'active': !login }" class="login-btn" @click="login = false"> Sign Up</button>
       </div>
       <div class="card-body" v-if="login">
-        <a class="navbar-brand" href="/"><img style="height:60px"
+        <a class="navbar-brand" href="/"><img loading="lazy" style="height:60px"
             src="https://dwglogo.com/wp-content/uploads/2019/03/1600px-OpenAI_logo.png" alt=""></a>
         <div class="card">
           <div class="card-header"
@@ -49,7 +49,7 @@
 
 
       <div class="card-body" v-if="!login">
-        <a class="navbar-brand" href="#"><img style="height:60px"
+        <a class="navbar-brand" href="#"><img loading="lazy" style="height:60px"
             src="https://dwglogo.com/wp-content/uploads/2019/03/1600px-OpenAI_logo.png" alt=""></a>
         <div class="card">
           <div class="card-header"
@@ -255,7 +255,6 @@ export default {
           })
           .catch(error => {
             if (error.response) {
-              console.log(error.response)
               if (error.response.data[0] === 'non_field_errors') {
                 this.$swal(`<div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div><h5>Incorrect Username Or Password</h5>`)
               } else {

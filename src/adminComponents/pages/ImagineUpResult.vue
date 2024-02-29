@@ -121,9 +121,9 @@ export default {
         .get(`/imagine-result/${id}`)
         .then(response => response.data)
         .then(response => {
-          console.log(response)
+
           if (response.result) {
-            console.log(response)
+
             this.result = response.result
             this.progress = response.percent
             this.image = response.image

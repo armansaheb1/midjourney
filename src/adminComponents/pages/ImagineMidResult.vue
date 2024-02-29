@@ -18,6 +18,7 @@
         </div>
       </div>
       <div id="menu" :style="`float:right ; height:${height}px`">
+        <p v-if="errors" class="alert alert-danger">{{ errors }}</p>
         <div>
           Upscale<br><br>
           <button class="btn btn-dark" style="width:23%; margin: 0 1%;" @click="button('U1')">1</button>
@@ -70,7 +71,9 @@ export default {
       progress: 0,
       image: '',
       height: 10,
-      bid: ''
+      bid: '',
+      errors: '',
+      id: ''
     }
   },
   mounted() {
@@ -91,14 +94,22 @@ export default {
       document.body.removeChild(link)
     },
     get_width() {
+      alert('hi')
       if (document.getElementById('img')) {
-        setTimeout(() => {
-          this.height = document.getElementById('img').offsetWidth
-        }, 1);
-        window.addEventListener('resize', () => {
-          this.height = document.getElementById('img').offsetWidth
-        })
+        const getMeta = (url, cb) => {
+          const img = new Image();
+          img.onload = () => cb(null, img);
+          img.onerror = (err) => cb(err);
+          img.src = url;
+        };
+        getMeta(this.image, (err, img) => {
+          var width = document.getElementById('img').offsetWidth
+          var ratio = img.naturalHeight / img.naturalWidth
+          this.height = ratio * width
+          alert(ratio * width)
+        });
       }
+
     },
     async button(id) {
       if (this.balance === 0) {
@@ -110,7 +121,6 @@ export default {
         return false
       }
       var urls = ''
-      urls = urls + this.result[id] + '\n'
       this.text = urls + this.text
       var act = 'v'
       if (id.includes('U')) {
@@ -126,6 +136,8 @@ export default {
             window.location.href = '/imagine/' + response['code'];
           }
 
+        }).catch(error => {
+          this.errors = error.response.data
         })
 
     },
@@ -142,19 +154,22 @@ export default {
       document.body.removeChild(link)
     },
     async get_image() {
-      var id = this.$route.params.id
+      if (!this.id) {
+        this.id = this.$route.params.id
+      }
       await axios
         .get(`/imagine-result/${id}`)
         .then(response => response.data)
         .then(response => {
-          console.log(response)
           if (response.result) {
-            console.log(response)
             this.result = response.result
             this.progress = response.percent
             this.image = response.image
             this.text = response.text
             this.bid = response.bid
+            if (response.percent === 100) {
+              this.get_width()
+            }
           }
           else {
             this.progress = response.percent
@@ -174,7 +189,7 @@ export default {
           this.get_width();
         }, 500);
         window.addEventListener('resize', () => {
-          this.height = document.getElementById('img').offsetWidth
+          this.get_width()
         })
       },
       deep: true
@@ -192,7 +207,6 @@ export default {
 }
 
 @media only screen and (max-width: 500px) {
-
   #img {
     width: 100%
   }

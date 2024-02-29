@@ -21,6 +21,10 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import axios from 'axios'
 
+window.onpopstate = function () {
+  goto('/imagine');
+}; history.pushState({}, '');
+
 export default {
   name: 'HomeView',
   components: {
@@ -53,7 +57,6 @@ export default {
             document.getElementById('submit').disabled = false
             document.getElementById('submit').innerHTML = 'Submit'
           }
-          console.log(this.urls)
         })
 
     },
@@ -77,9 +80,6 @@ export default {
               this.get_image(id)
             }, 2000);
           }
-          else {
-            console.log(response.imageUrls)
-          }
         })
 
     },
@@ -97,7 +97,6 @@ export default {
         urls = urls + item + '\n'
       }
       this.text = urls + this.text
-      console.log(this.text)
       await axios
         .post('/imagine', { text: this.text })
         .then(response => response.data)

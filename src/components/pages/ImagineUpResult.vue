@@ -31,6 +31,7 @@
       <div style="clear: both"></div>
     </div>
   </div>
+  <div style="height: 200px;width: 100%"></div>
 </template>
 
 <script>
@@ -121,9 +122,9 @@ export default {
         .get(`/imagine-result/${id}`)
         .then(response => response.data)
         .then(response => {
-          console.log(response)
+
           if (response.result) {
-            console.log(response)
+
             this.result = response.result
             this.progress = response.percent
             this.image = response.image

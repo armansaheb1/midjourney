@@ -78,7 +78,7 @@ export default {
         .then(response => response.data)
         .then(response => {
           this.transactions = response
-          console.log(response)
+
         })
 
     },
@@ -88,7 +88,7 @@ export default {
         .then(response => response.data)
         .then(response => {
           this.all = response
-          console.log(response)
+
         })
 
     },
